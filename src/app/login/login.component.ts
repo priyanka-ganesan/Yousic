@@ -15,6 +15,6 @@ export class LoginComponent implements OnInit {
   
   
   public login(): void {
-    console.log("LOGIN")
+    console.log("login called")
   }
 }
