@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { filter } from 'rxjs/operators/filter';
-
+import { Component, OnInit, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { environment } from '../../environments/environment'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -8,13 +8,11 @@ import { filter } from 'rxjs/operators/filter';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(DOCUMENT) private document: Document) { }
 
   ngOnInit(): void {}
-
-  
   
   public login(): void {
-    console.log("LOGIN")
+    this.document.location.href = environment.spotifyClientId;
   }
 }
