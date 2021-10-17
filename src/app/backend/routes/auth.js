@@ -1,10 +1,16 @@
 const express = require("express");
-const router = express.Router();
+const createUser = require("../firestore/createUser");
+const getAccessTokens = require("../spotify/getAccessToken");
+const getUsersInfo = require("../spotify/getUsersInfo");
+const authRoutes = express.Router();
 
-router.post("/", (req, res) => {
-        console.log("got the code:", req.body.code)
-        res.status(200).json({ message: "Update successful!" });
-    }
-);
+authRoutes.post("/", async (req, res) => {
+    getAccessTokens(req.body.code)
+    .then((tokens) => getUsersInfo(tokens))
+    .then((userInfo) => createUser(userInfo))
+    .then((userInfo) => res.status(200).json(userInfo))
+    .catch(error => res.status(400).json(error))
+});
 
-module.exports = router;
+
+module.exports = authRoutes;
