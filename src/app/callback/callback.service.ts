@@ -7,11 +7,11 @@ import { map, catchError } from "rxjs/operators";
   providedIn: 'root'
 })
 export class CallbackService {
-  baseUrl = 'http://localhost:3000/api'
+  baseUrl = 'http://localhost:3000'
   constructor(private http: HttpClient) { }
 
   login(code: string): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/auth`, { code }).pipe(
+    return this.http.post<any>(`${this.baseUrl}/user/auth`, { code }).pipe(
       map((obj) => obj),
       catchError((e) => this.errorHandler(e))
     );
